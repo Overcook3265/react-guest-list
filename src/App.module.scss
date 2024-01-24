@@ -1,0 +1,22 @@
+.app {
+  background-color: var(--color-background);
+  min-height: 100vh;
+  text-align: center;
+}
+
+.header {
+  background-color: var(--color-background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: var(--color-violet);
+}
+
+.inputfields {
+  display: flex;
+  justify-content: center;
+  border-style: dotted;
+  border-width: 2px;
+}
