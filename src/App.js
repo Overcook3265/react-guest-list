@@ -1,17 +1,27 @@
 import './index.scss';
 import { useState } from 'react';
 import styles from './App.module.scss';
+import GuestArray from './GuestArray';
+
+const initialGuests = [{ name: '', last: '', id: 0 }];
 
 export default function App() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const initialGuests = [{ name: '', last: '' }];
+  const [guests, setGuests] = useState(initialGuests);
   const handleSubmit = (event) => {
+    const newGuestId = guests[guests.length - 1].id + 1;
+    const newGuest = { name: firstName, last: lastName, id: newGuestId };
+    setGuests([...guests, newGuest]);
+    // initialGuests.name = firstName;
+    // initialGuests.last = lastName;
+    // initialGuests.id++;
+    // console.log(`Submitted ${firstName} ${lastName} `);
     // this code prevents the website from refreshing
     event.preventDefault();
+    // reset input fields
     event.target.reset();
-
-    console.log(`Submitted ${firstName} ${lastName} `);
+    console.log(guests);
   };
   return (
     <div className={styles.app}>
@@ -40,7 +50,9 @@ export default function App() {
           </label>
           <button>Submit</button>
         </form>
-        <div>{/* {firstName} {lastName} */}</div>
+        <div>
+          <GuestArray firstName={firstName} lastName={lastName} />
+        </div>
       </div>
     </div>
   );
