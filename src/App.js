@@ -4,7 +4,6 @@ import styles from './App.module.scss';
 import GuestArray from './GuestArray';
 
 const initialGuests = [{ name: '', last: '', id: 0 }];
-
 export default function App() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -20,7 +19,8 @@ export default function App() {
     // this code prevents the website from refreshing
     event.preventDefault();
     // reset input fields
-    event.target.reset();
+    setFirstName('');
+    setLastName('');
     console.log(guests);
   };
   return (
@@ -34,6 +34,7 @@ export default function App() {
             Vorname
             <input
               placeholder="Vorname"
+              value={firstName}
               onChange={(event) => {
                 setFirstName(event.target.value);
               }}
@@ -43,6 +44,7 @@ export default function App() {
             Nachname
             <input
               placeholder="Nachname"
+              value={lastName}
               onChange={(event) => {
                 setLastName(event.target.value);
               }}
