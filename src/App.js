@@ -52,6 +52,7 @@ export default function App() {
           </label>
           <button>Submit</button>
         </form>
+
         <div>
           <GuestArray firstName={firstName} lastName={lastName} />
         </div>
