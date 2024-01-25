@@ -1,8 +1,11 @@
 import './index.scss';
+import { useState } from 'react';
 import styles from './App.module.scss';
-import logo from './logo.svg';
 
 export default function App() {
+  const [firstName, setFirstName] = useState('');
+  const [familyName, setFamilyName] = useState('');
+  const initialGuests = [{ name: '', family: '' }];
   return (
     <div className={styles.app}>
       <div className="Wrapper">
@@ -13,13 +16,26 @@ export default function App() {
           <section className={styles.inputfields}>
             <label>
               Vorname
-              <input value={'Vorname'} id="Vorname"></input>
+              <input
+                placeholder={'Vorname'}
+                onChange={(event) => {
+                  setFirstName(event.currentTarget.value);
+                }}
+              />
             </label>
             <label>
               Nachname
-              <input value={'Nachname'}></input>
+              <input
+                placeholder={'Nachname'}
+                onChange={(event) => {
+                  setFamilyName(event.currentTarget.value);
+                }}
+              />
             </label>
           </section>
+          <div>
+            {firstName} {familyName}
+          </div>
         </body>
       </div>
     </div>
