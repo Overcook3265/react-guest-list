@@ -66,12 +66,15 @@ export default function App() {
         </form>
 
         <div>
-          <GuestArray
-            guests={guests}
-            setGuests={setGuests}
-            attendance={attendance}
-            setAttendance={setAttendance}
-          />
+          {guests.map((guest) => {
+            return (
+              <div key={`guest-${guest.id}`}>
+                <h3>
+                  {guest.name} {guest.last} {JSON.stringify(guest.isComing)}
+                </h3>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
