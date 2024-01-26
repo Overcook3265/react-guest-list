@@ -12,10 +12,7 @@ export default function App() {
     const newGuestId = guests[guests.length - 1].id + 1;
     const newGuest = { name: firstName, last: lastName, id: newGuestId };
     setGuests([...guests, newGuest]);
-    // initialGuests.name = firstName;
-    // initialGuests.last = lastName;
-    // initialGuests.id++;
-    // console.log(`Submitted ${firstName} ${lastName} `);
+
     // this code prevents the website from refreshing
     event.preventDefault();
     // reset input fields
@@ -54,7 +51,7 @@ export default function App() {
         </form>
 
         <div>
-          <GuestArray firstName={firstName} lastName={lastName} />
+          <GuestArray guests={guests} />
         </div>
       </div>
     </div>
