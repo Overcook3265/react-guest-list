@@ -1,22 +1,24 @@
 import './index.scss';
 import { useState } from 'react';
 import styles from './App.module.scss';
+
 // import CheckBox from './CheckBox';
-import GuestArray from './GuestArray';
+// import GuestArray from './GuestArray';
 
 const initialGuests = [{ name: '', last: '', id: 0, isComing: false }];
 export default function App() {
+  const [isGuestComing, setIsGuestComing] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [guests, setGuests] = useState(initialGuests);
-  const [attendance, setAttendance] = useState(false);
+  // const [attendance, setAttendance] = useState(false);
   const handleSubmit = () => {
     const newGuestId = guests[guests.length - 1].id + 1;
     const newGuest = {
       name: firstName,
       last: lastName,
       id: newGuestId,
-      isComing: attendance,
+      isComing: isGuestComing,
     };
     setGuests([...guests, newGuest]);
     // IDEA:maybe put button into component, pass down props of array to specify which one it deletes. Insert button into array?
@@ -63,8 +65,19 @@ export default function App() {
             />
           </label>
           <button>Submit</button>
+          <label>
+            <input
+              type="checkbox"
+              // 2. Connect the state variable to the form fields
+              checked={isGuestComing}
+              // 3. Update the values of the state variables based on user input
+              onChange={(event) =>
+                setIsGuestComing(event.currentTarget.checked)
+              }
+            />
+            Actually showing up
+          </label>
         </form>
-
         <div>
           {guests.map((guest) => {
             return (
