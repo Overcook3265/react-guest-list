@@ -10,7 +10,7 @@ export default function App() {
   const [lastName, setLastName] = useState('');
   const [guests, setGuests] = useState(initialGuests);
   const [attendance, setAttendance] = useState(false);
-  const handleSubmit = (event) => {
+  const handleSubmit = () => {
     const newGuestId = guests[guests.length - 1].id + 1;
     const newGuest = {
       name: firstName,
@@ -22,10 +22,9 @@ export default function App() {
     // IDEA:maybe put button into component, pass down props of array to specify which one it deletes. Insert button into array?
     // IDEA: make a component out of checkbox too. LINE 18 as prop!
     // this code prevents the website from refreshing
-    event.preventDefault();
+    // event.preventDefault();
     // reset input fields
-    setFirstName('');
-    setLastName('');
+
     console.log(guests);
   };
   return (
@@ -34,7 +33,15 @@ export default function App() {
         <header className={styles.header}>
           <h1>Who's Coming?</h1>
         </header>
-        <form className={styles.inputFields} onSubmit={handleSubmit}>
+        <form
+          className={styles.inputFields}
+          onSubmit={(event) => {
+            event.preventDefault();
+            handleSubmit();
+            setFirstName('');
+            setLastName('');
+          }}
+        >
           <label>
             Vorname
             <input
