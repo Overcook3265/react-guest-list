@@ -88,12 +88,14 @@ export default function App() {
                 <label>
                   <input
                     type="checkbox"
-                    // 2. Connect the state variable to the form fields
                     checked={guest.isComing}
-                    // 3. Update the values of the state variables based on user input
-                    onChange={(event) =>
-                      setIsGuestComing(event.currentTarget.checked)
-                    }
+                    onChange={() => {
+                      const updatedGuests = guests.map((g) =>
+                        g.id === guest.id ? { ...g, isComing: !g.isComing } : g,
+                      );
+
+                      setGuests(updatedGuests);
+                    }}
                   />
                   Actually showing up
                 </label>
