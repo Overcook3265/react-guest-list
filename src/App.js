@@ -85,6 +85,18 @@ export default function App() {
                 <h3>
                   {guest.name} {guest.last} {JSON.stringify(guest.isComing)}
                 </h3>
+                <label>
+                  <input
+                    type="checkbox"
+                    // 2. Connect the state variable to the form fields
+                    checked={guest.isComing}
+                    // 3. Update the values of the state variables based on user input
+                    onChange={(event) =>
+                      setIsGuestComing(event.currentTarget.checked)
+                    }
+                  />
+                  Actually showing up
+                </label>
               </div>
             );
           })}
