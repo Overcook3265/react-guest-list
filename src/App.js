@@ -2,16 +2,16 @@ import './index.scss';
 import { useState } from 'react';
 import styles from './App.module.scss';
 
-// import CheckBox from './CheckBox';
-// import GuestArray from './GuestArray';
-
 const initialGuests = [{ name: '', last: '', id: 0, isComing: false }];
+// Definition of variables
 export default function App() {
   const [isGuestComing, setIsGuestComing] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [guests, setGuests] = useState(initialGuests);
-  // const [attendance, setAttendance] = useState(false);
+  // function defining how to add new guest to guest array.
+  // Create ascending ID, create new object with input content inside.
+  // set isComing to state variable so it can be changed
   const handleSubmit = () => {
     const newGuestId = guests[guests.length - 1].id + 1;
     const newGuest = {
@@ -29,15 +29,18 @@ export default function App() {
 
     console.log(guests);
   };
+  // add JSX html structure
   return (
-    <div className={styles.app}>
+    <div data-test-id="guest" className={styles.app}>
       <div className="Wrapper">
         <header className={styles.header}>
           <h1>Who's Coming?</h1>
         </header>
         <form
           className={styles.inputFields}
+          // onSubmit: Reacts ot "Enter" button in form element
           onSubmit={(event) => {
+            //preventDefault stops site from refreshing
             event.preventDefault();
             handleSubmit();
             setFirstName('');
@@ -48,7 +51,9 @@ export default function App() {
             Vorname
             <input
               placeholder="Vorname"
+              // set value to firstName to connect it to variable
               value={firstName}
+              // change the variable when input field chanes
               onChange={(event) => {
                 setFirstName(event.target.value);
               }}
@@ -66,11 +71,10 @@ export default function App() {
           </label>
           <button>Submit</button>
           <label>
+            {/* Connect attendance checkbox to guest object value */}
             <input
               type="checkbox"
-              // 2. Connect the state variable to the form fields
               checked={isGuestComing}
-              // 3. Update the values of the state variables based on user input
               onChange={(event) =>
                 setIsGuestComing(event.currentTarget.checked)
               }
@@ -81,18 +85,24 @@ export default function App() {
         <br />
         <div>
           {guests.map((guest) => {
+            {
+              /* // show guest array, set guest.id as identifier */
+            }
             return (
               <div key={`guest-${guest.id}`}>
                 <h4>
                   {guest.name} {guest.last}
                   {/* {JSON.stringify(guest.isComing)} */}
+                  {/* Show element if guest id is not 0 (empty initial object) */}
                   {guest.id !== 0 ? (
                     <div>
                       <label>
                         <input
                           type="checkbox"
                           checked={guest.isComing}
+                          // Implement change mechanism
                           onChange={() => {
+                            // create a new array, set it equal to guest. Map the guests array to check if the new array's id is identical to the guest id. If yes, spread array and set value of element to opposite
                             const updatedGuests = guests.map((g) =>
                               g.id === guest.id
                                 ? { ...g, isComing: !g.isComing }
@@ -102,10 +112,11 @@ export default function App() {
                             setGuests(updatedGuests);
                           }}
                         />
-                        Actually showing up
+                        Attending
                       </label>
                       <button
                         onClick={() => {
+                          // create new variable, use .filter method to fill it with all elements that are NOT the current id.
                           const updatedGuests = guests.filter(
                             (g) => g.id !== guest.id,
                           );
