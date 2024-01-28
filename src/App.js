@@ -87,22 +87,37 @@ export default function App() {
                   {guest.name} {guest.last}
                   {/* {JSON.stringify(guest.isComing)} */}
                   {guest.id !== 0 ? (
-                    <label>
-                      <input
-                        type="checkbox"
-                        checked={guest.isComing}
-                        onChange={() => {
+                    <div>
+                      <label>
+                        <input
+                          type="checkbox"
+                          checked={guest.isComing}
+                          onChange={() => {
+                            const updatedGuests = guests.map((g) =>
+                              g.id === guest.id
+                                ? { ...g, isComing: !g.isComing }
+                                : g,
+                            );
+
+                            setGuests(updatedGuests);
+                          }}
+                        />
+                        Actually showing up
+                      </label>
+                      <button
+                        onClick={() => {
                           const updatedGuests = guests.map((g) =>
                             g.id === guest.id
-                              ? { ...g, isComing: !g.isComing }
+                              ? guests.splice([guest.id], 1)
                               : g,
                           );
 
                           setGuests(updatedGuests);
                         }}
-                      />
-                      Actually showing up
-                    </label>
+                      >
+                        Remove
+                      </button>
+                    </div>
                   ) : (
                     ''
                   )}
