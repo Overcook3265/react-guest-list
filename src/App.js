@@ -78,27 +78,35 @@ export default function App() {
             Actually showing up
           </label>
         </form>
+        <br />
         <div>
           {guests.map((guest) => {
             return (
               <div key={`guest-${guest.id}`}>
-                <h3>
-                  {guest.name} {guest.last} {JSON.stringify(guest.isComing)}
-                </h3>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={guest.isComing}
-                    onChange={() => {
-                      const updatedGuests = guests.map((g) =>
-                        g.id === guest.id ? { ...g, isComing: !g.isComing } : g,
-                      );
+                <h4>
+                  {guest.name} {guest.last}
+                  {/* {JSON.stringify(guest.isComing)} */}
+                  {guest.id !== 0 ? (
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={guest.isComing}
+                        onChange={() => {
+                          const updatedGuests = guests.map((g) =>
+                            g.id === guest.id
+                              ? { ...g, isComing: !g.isComing }
+                              : g,
+                          );
 
-                      setGuests(updatedGuests);
-                    }}
-                  />
-                  Actually showing up
-                </label>
+                          setGuests(updatedGuests);
+                        }}
+                      />
+                      Actually showing up
+                    </label>
+                  ) : (
+                    ''
+                  )}
+                </h4>
               </div>
             );
           })}
