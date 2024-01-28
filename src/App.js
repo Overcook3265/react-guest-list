@@ -106,12 +106,9 @@ export default function App() {
                       </label>
                       <button
                         onClick={() => {
-                          const updatedGuests = guests.map((g) =>
-                            g.id === guest.id
-                              ? guests.splice([guest.id], 1)
-                              : g,
+                          const updatedGuests = guests.filter(
+                            (g) => g.id !== guest.id,
                           );
-
                           setGuests(updatedGuests);
                         }}
                       >
