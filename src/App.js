@@ -90,7 +90,7 @@ export default function App() {
           }}
         >
           <label>
-            Vorname
+            First name
             <input
               placeholder="Vorname"
               // set value to firstName to connect it to variable
@@ -102,7 +102,7 @@ export default function App() {
             />
           </label>
           <label>
-            Nachname
+            Last name
             <input
               placeholder="Nachname"
               value={lastName}
