@@ -9,6 +9,7 @@ export default function App() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [guests, setGuests] = useState(initialGuests);
+  const [isLoading, setIsLoading] = useState(true);
   // function defining how to add new guest to guest array.
   // Create ascending ID, create new object with input content inside.
   // set isComing to state variable so it can be changed
@@ -22,8 +23,7 @@ export default function App() {
       // setUsers([data.results[0]]);
 
       setGuests(allGuests);
-      // setIsLoading(false);
-      console.log(guests);
+      setIsLoading(false);
     }
 
     firstRenderFetch().catch((error) => {
@@ -66,6 +66,10 @@ export default function App() {
   // };
 
   // add JSX html structure
+  if (isLoading) {
+    return 'Loading...';
+  }
+
   return (
     <div data-test-id="guest" className={styles.app}>
       <div className="Wrapper">
