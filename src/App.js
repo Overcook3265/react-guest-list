@@ -1,5 +1,5 @@
 import './index.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './App.module.scss';
 
 const initialGuests = [{ name: '', last: '', id: 0, isComing: false }];
@@ -12,6 +12,21 @@ export default function App() {
   // function defining how to add new guest to guest array.
   // Create ascending ID, create new object with input content inside.
   // set isComing to state variable so it can be changed
+  const baseUrl = 'http://localhost:4000';
+
+  const saveGuest = async () => {
+    const response = await fetch(`${baseUrl}/guests`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        firstName: firstName,
+        lastName: lastName,
+      }),
+    });
+    const createdGuest = await response.json();
+  };
   const handleSubmit = () => {
     const newGuestId = guests[guests.length - 1].id + 1;
     const newGuest = {
@@ -29,6 +44,7 @@ export default function App() {
 
     console.log(guests);
   };
+
   // add JSX html structure
   return (
     <div data-test-id="guest" className={styles.app}>
@@ -45,6 +61,7 @@ export default function App() {
             handleSubmit();
             setFirstName('');
             setLastName('');
+            saveGuest();
           }}
         >
           <label>
@@ -134,6 +151,23 @@ export default function App() {
             );
           })}
         </div>
+        <button
+        // onClick={async () => {
+        //   const response = await fetch(`${baseUrl}/guests`, {
+        //     method: 'POST',
+        //     headers: {
+        //       'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify({
+        //       firstName: `${guests.name}`,
+        //       lastName: `${guests.last}`,
+        //     }),
+        //   });
+        //   const createdGuest = await response.json();
+        // }}
+        >
+          Save Guest List
+        </button>
       </div>
     </div>
   );
