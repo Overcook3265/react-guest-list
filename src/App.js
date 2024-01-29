@@ -125,13 +125,13 @@ export default function App() {
           </label>
         </form>
         <br />
-        <div>
+        <div key={`guest-${guest.id}`}>
           {guests.map((guest) => {
             {
               /* // show guest array, set guest.id as identifier */
             }
             return (
-              <div key={`guest-${guest.id}`}>
+              <div>
                 <h4>
                   {guest.firstName} {guest.lastName}
                   {/* {JSON.stringify(guest.isComing)} */}
