@@ -72,7 +72,7 @@ export default function App() {
   }
 
   return (
-    <div data-test-id="guest" className={styles.app}>
+    <div className={styles.app}>
       <div className="Wrapper">
         <header className={styles.header}>
           <h1>Who's Coming?</h1>
