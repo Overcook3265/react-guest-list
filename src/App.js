@@ -14,6 +14,23 @@ export default function App() {
   // set isComing to state variable so it can be changed
   const baseUrl = 'http://localhost:4000';
 
+  useEffect(() => {
+    async function firstRenderFetch() {
+      const response = await fetch(`${baseUrl}/guests`);
+      const allGuests = await response.json();
+
+      // setUsers([data.results[0]]);
+
+      setGuests(allGuests);
+      // setIsLoading(false);
+      console.log(guests);
+    }
+
+    firstRenderFetch().catch((error) => {
+      console.log(error);
+    });
+  }, []);
+
   const saveGuest = async () => {
     const response = await fetch(`${baseUrl}/guests`, {
       method: 'POST',
@@ -27,24 +44,26 @@ export default function App() {
     });
     const createdGuest = await response.json();
     setGuests([...guests, createdGuest]);
-  };
-  const handleSubmit = () => {
-    const newGuestId = guests[guests.length - 1].id + 1;
-    const newGuest = {
-      name: firstName,
-      last: lastName,
-      id: newGuestId,
-      isComing: isGuestComing,
-    };
-
-    // IDEA:maybe put button into component, pass down props of array to specify which one it deletes. Insert button into array?
-    // IDEA: make a component out of checkbox too. LINE 18 as prop!
-    // this code prevents the website from refreshing
-    // event.preventDefault();
-    // reset input fields
-
     console.log(guests);
   };
+
+  // const handleSubmit = () => {
+  //   const newGuestId = guests[guests.length - 1].id + 1;
+  //   const newGuest = {
+  //     name: firstName,
+  //     last: lastName,
+  //     id: newGuestId,
+  //     isComing: isGuestComing,
+  //   };
+
+  //   // IDEA:maybe put button into component, pass down props of array to specify which one it deletes. Insert button into array?
+  //   // IDEA: make a component out of checkbox too. LINE 18 as prop!
+  //   // this code prevents the website from refreshing
+  //   // event.preventDefault();
+  //   // reset input fields
+
+  //   console.log(guests);
+  // };
 
   // add JSX html structure
   return (
@@ -160,23 +179,15 @@ export default function App() {
             );
           })}
         </div>
-        <button
-        // onClick={async () => {
-        //   const response = await fetch(`${baseUrl}/guests`, {
-        //     method: 'POST',
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({
-        //       firstName: `${guests.name}`,
-        //       lastName: `${guests.last}`,
-        //     }),
-        //   });
-        //   const createdGuest = await response.json();
-        // }}
+        {/* <button
+          onClick={async () => {
+            const response = await fetch(`${baseUrl}/guests`);
+            const allGuests = await response.json();
+            setGuests([...guests, allGuests]);
+          }}
         >
-          Save Guest List
-        </button>
+          Load Guest List
+        </button> */}
       </div>
     </div>
   );
