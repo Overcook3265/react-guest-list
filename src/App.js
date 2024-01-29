@@ -95,7 +95,7 @@ export default function App() {
               placeholder="Vorname"
               // set value to firstName to connect it to variable
               value={firstName}
-              // change the variable when input field chanes
+              // change the variable when input field changes
               onChange={(event) => {
                 setFirstName(event.target.value);
               }}
@@ -164,13 +164,10 @@ export default function App() {
                           );
                           setGuests(updatedGuests);
                           console.log(guests);
-                          const response = await fetch(
-                            `${baseUrl}/guests/${guest.id}`,
-                            {
-                              method: 'DELETE',
-                            },
-                          );
-                          const deletedGuest = await response.json();
+                          await fetch(`${baseUrl}/guests/${guest.id}`, {
+                            method: 'DELETE',
+                          });
+                          // const deletedGuest = await response.json();
                         }}
                       >
                         Remove
