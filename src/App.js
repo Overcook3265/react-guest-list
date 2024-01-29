@@ -26,6 +26,7 @@ export default function App() {
       }),
     });
     const createdGuest = await response.json();
+    setGuests([...guests, createdGuest]);
   };
   const handleSubmit = () => {
     const newGuestId = guests[guests.length - 1].id + 1;
@@ -35,7 +36,7 @@ export default function App() {
       id: newGuestId,
       isComing: isGuestComing,
     };
-    setGuests([...guests, newGuest]);
+
     // IDEA:maybe put button into component, pass down props of array to specify which one it deletes. Insert button into array?
     // IDEA: make a component out of checkbox too. LINE 18 as prop!
     // this code prevents the website from refreshing
@@ -58,10 +59,10 @@ export default function App() {
           onSubmit={(event) => {
             //preventDefault stops site from refreshing
             event.preventDefault();
-            handleSubmit();
+            // handleSubmit();
+            saveGuest();
             setFirstName('');
             setLastName('');
-            saveGuest();
           }}
         >
           <label>
@@ -108,7 +109,7 @@ export default function App() {
             return (
               <div key={`guest-${guest.id}`}>
                 <h4>
-                  {guest.name} {guest.last}
+                  {guest.firstName} {guest.lastName}
                   {/* {JSON.stringify(guest.isComing)} */}
                   {/* Show element if guest id is not 0 (empty initial object) */}
                   {guest.id !== 0 ? (
