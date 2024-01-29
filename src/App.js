@@ -118,7 +118,7 @@ export default function App() {
                           type="checkbox"
                           checked={guest.isComing}
                           // Implement change mechanism
-                          onChange={() => {
+                          onChange={async () => {
                             // create a new array, set it equal to guest. Map the guests array to check if the new array's id is identical to the guest id. If yes, spread array and set value of element to opposite
                             const updatedGuests = guests.map((g) =>
                               g.id === guest.id
@@ -132,12 +132,20 @@ export default function App() {
                         Attending
                       </label>
                       <button
-                        onClick={() => {
+                        onClick={async () => {
                           // create new variable, use .filter method to fill it with all elements that are NOT the current id.
                           const updatedGuests = guests.filter(
                             (g) => g.id !== guest.id,
                           );
                           setGuests(updatedGuests);
+                          console.log(guests);
+                          const response = await fetch(
+                            `${baseUrl}/guests/${guest.id}`,
+                            {
+                              method: 'DELETE',
+                            },
+                          );
+                          const deletedGuest = await response.json();
                         }}
                       >
                         Remove
