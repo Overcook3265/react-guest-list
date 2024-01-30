@@ -73,7 +73,7 @@ export default function App() {
 
   return (
     <div className={styles.app}>
-      <div className="Wrapper" data-test-id="guest">
+      <div className="Wrapper">
         <header className={styles.header}>
           <h1>Who's Coming?</h1>
         </header>
@@ -131,7 +131,7 @@ export default function App() {
               /* // show guest array, set guest.id as identifier */
             }
             return (
-              <div key={`guest-${guest.id}`}>
+              <div key={`guest-${guest.id}`} data-test-id="guest">
                 <h4>
                   {guest.firstName} {guest.lastName}
                   {/* {JSON.stringify(guest.isComing)} */}
