@@ -131,49 +131,51 @@ export default function App() {
               /* // show guest array, set guest.id as identifier */
             }
             return (
-              <div key={`guest-${guest.id}`} data-test-id="guest">
+              <div key={`guest-${guest.id}`}>
                 {guest.id !== 0 ? (
-                  <h4>
-                    {/* {JSON.stringify(guest.isComing)} */}
-                    {guest.firstName} {guest.lastName}
-                    {/* Show element if guest id is not 0 (empty initial object) */}
-                    <div>
-                      <label>
-                        <input
-                          type="checkbox"
-                          checked={guest.isComing}
-                          // Implement change mechanism
-                          onChange={async () => {
-                            // create a new array, set it equal to guest. Map the guests array to check if the new array's id is identical to the guest id. If yes, spread array and set value of element to opposite
-                            const updatedGuests = guests.map((g) =>
-                              g.id === guest.id
-                                ? { ...g, isComing: !g.isComing }
-                                : g,
-                            );
+                  <div data-test-id="guest">
+                    <h4>
+                      {/* {JSON.stringify(guest.isComing)} */}
+                      {guest.firstName} {guest.lastName}
+                      {/* Show element if guest id is not 0 (empty initial object) */}
+                      <div>
+                        <label>
+                          <input
+                            type="checkbox"
+                            checked={guest.isComing}
+                            // Implement change mechanism
+                            onChange={async () => {
+                              // create a new array, set it equal to guest. Map the guests array to check if the new array's id is identical to the guest id. If yes, spread array and set value of element to opposite
+                              const updatedGuests = guests.map((g) =>
+                                g.id === guest.id
+                                  ? { ...g, isComing: !g.isComing }
+                                  : g,
+                              );
 
+                              setGuests(updatedGuests);
+                            }}
+                          />
+                          attending
+                        </label>
+                        <button
+                          onClick={async () => {
+                            // create new variable, use .filter method to fill it with all elements that are NOT the current id.
+                            const updatedGuests = guests.filter(
+                              (g) => g.id !== guest.id,
+                            );
                             setGuests(updatedGuests);
+                            console.log(guests);
+                            await fetch(`${baseUrl}/guests/${guest.id}`, {
+                              method: 'DELETE',
+                            });
+                            // const deletedGuest = await response.json();
                           }}
-                        />
-                        attending
-                      </label>
-                      <button
-                        onClick={async () => {
-                          // create new variable, use .filter method to fill it with all elements that are NOT the current id.
-                          const updatedGuests = guests.filter(
-                            (g) => g.id !== guest.id,
-                          );
-                          setGuests(updatedGuests);
-                          console.log(guests);
-                          await fetch(`${baseUrl}/guests/${guest.id}`, {
-                            method: 'DELETE',
-                          });
-                          // const deletedGuest = await response.json();
-                        }}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </h4>
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </h4>
+                  </div>
                 ) : (
                   ''
                 )}
