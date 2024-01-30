@@ -112,17 +112,13 @@ export default function App() {
             />
           </label>
           <button>Submit</button>
-          <label>
-            {/* Connect attendance checkbox to guest object value */}
-            <input
-              type="checkbox"
-              checked={isGuestComing}
-              onChange={(event) =>
-                setIsGuestComing(event.currentTarget.checked)
-              }
-            />
-            Actually attending
-          </label>
+          {/* Connect attendance checkbox to guest object value */}
+          <input
+            aria-label="Actually attending"
+            type="checkbox"
+            checked={isGuestComing}
+            onChange={(event) => setIsGuestComing(event.currentTarget.checked)}
+          />
         </form>
         <br />
         <div>
