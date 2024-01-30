@@ -132,11 +132,11 @@ export default function App() {
             }
             return (
               <div key={`guest-${guest.id}`} data-test-id="guest">
-                <h4>
-                  {guest.firstName} {guest.lastName}
-                  {/* {JSON.stringify(guest.isComing)} */}
-                  {/* Show element if guest id is not 0 (empty initial object) */}
-                  {guest.id !== 0 ? (
+                {guest.id !== 0 ? (
+                  <h4>
+                    {/* {JSON.stringify(guest.isComing)} */}
+                    {guest.firstName} {guest.lastName}
+                    {/* Show element if guest id is not 0 (empty initial object) */}
                     <div>
                       <label>
                         <input
@@ -173,10 +173,10 @@ export default function App() {
                         Remove
                       </button>
                     </div>
-                  ) : (
-                    ''
-                  )}
-                </h4>
+                  </h4>
+                ) : (
+                  ''
+                )}
               </div>
             );
           })}
