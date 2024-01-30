@@ -154,7 +154,7 @@ export default function App() {
                             setGuests(updatedGuests);
                           }}
                         />
-                        Attending
+                        attending
                       </label>
                       <button
                         onClick={async () => {
