@@ -140,6 +140,7 @@ export default function App() {
                     <label>
                       <input
                         type="checkbox"
+                        aria-label="attending"
                         checked={guest.attending}
                         // Implement change mechanism
                         onChange={async (event) => {
