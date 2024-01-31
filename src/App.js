@@ -6,7 +6,6 @@ import styles from './App.module.scss';
 // Definition of variables
 export default function App() {
   const [isNewGuestComing, setIsNewGuestComing] = useState(false);
-  const [attending, setAttending] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [guests, setGuests] = useState('');
@@ -147,7 +146,10 @@ export default function App() {
                           // create a new array, set it equal to guest. Map the guests array to check if the new array's id is identical to the guest id. If yes, spread array and set value of element to opposite
 
                           // setCurrentGuestId(guest.id);
-                          setAttending(event.currentTarget.checked);
+                          guest.attending = event.currentTarget.checked;
+                          const changedGuests = [...guests];
+                          setGuests(changedGuests);
+                          // setAttending(event.currentTarget.checked);
                           // setGuests(updatedGuests);
                           const response = await fetch(
                             `${baseUrl}/guests/${guest.id}`,
@@ -156,18 +158,20 @@ export default function App() {
                               headers: {
                                 'Content-Type': 'application/json',
                               },
-                              body: JSON.stringify({ attending: !attending }),
+                              body: JSON.stringify({
+                                attending: guest.attending,
+                              }),
                             },
                           );
                           const updatedGuest = await response.json();
                           console.log(updatedGuest);
 
-                          const updatedGuests = guests.map((g) =>
-                            g.id === updatedGuest.id
-                              ? { ...g, attending: !g.attending }
-                              : g,
-                          );
-                          setGuests(updatedGuests);
+                          // const updatedGuests = guests.map((g) =>
+                          //   g.id === updatedGuest.id
+                          //     ? { ...g, attending: !g.attending }
+                          //     : g,
+                          // );
+                          // setGuests(updatedGuests);
                         }}
                       />
                       attending
