@@ -11,7 +11,7 @@ export default function App() {
   const [lastName, setLastName] = useState('');
   const [guests, setGuests] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [currentGuestId, setCurrentGuestId] = useState(0);
+  // const [currentGuestId, setCurrentGuestId] = useState(0);
   // function defining how to add new guest to guest array.
   // Create ascending ID, create new object with input content inside.
   // set isComing to state variable so it can be changed
@@ -146,7 +146,7 @@ export default function App() {
                         onChange={async (event) => {
                           // create a new array, set it equal to guest. Map the guests array to check if the new array's id is identical to the guest id. If yes, spread array and set value of element to opposite
 
-                          setCurrentGuestId(guest.id);
+                          // setCurrentGuestId(guest.id);
                           setAttending(event.currentTarget.checked);
                           // setGuests(updatedGuests);
                           const response = await fetch(
