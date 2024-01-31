@@ -5,7 +5,7 @@ import styles from './App.module.scss';
 // const initialGuests = [{ name: '', last: '', id: 0, isComing: false }];
 // Definition of variables
 export default function App() {
-  const [isNewGuestComing, setIsNewGuestComing] = useState(false);
+  // const [isNewGuestComing, setIsNewGuestComing] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [guests, setGuests] = useState('');
@@ -46,6 +46,7 @@ export default function App() {
     });
     const createdGuest = await response.json();
     setGuests([...guests, createdGuest]);
+
     console.log(guests);
   };
 
@@ -81,10 +82,10 @@ export default function App() {
           className={styles.inputFields}
           // onSubmit: Reacts ot "Enter" button in form element
           onSubmit={(event) => {
-            //preventDefault stops site from refreshing
+            // preventDefault stops site from refreshing
             event.preventDefault();
             // handleSubmit();
-            saveGuest();
+            saveGuest().catch((error) => console.log(error));
             setFirstName('');
             setLastName('');
           }}
@@ -125,9 +126,6 @@ export default function App() {
         <br />
         <div>
           {guests.map((guest) => {
-            {
-              /* // show guest array, set guest.id as identifier */
-            }
             return (
               <div key={`guest-${guest.id}`} data-test-id="guest">
                 {/* {guest.id !== 0 ? ( */}
