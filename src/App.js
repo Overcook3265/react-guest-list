@@ -161,6 +161,7 @@ export default function App() {
                           );
                           const updatedGuest = await response.json();
                           console.log(updatedGuest);
+
                           const updatedGuests = guests.map((g) =>
                             g.id === updatedGuest.id
                               ? { ...g, attending: !g.attending }
