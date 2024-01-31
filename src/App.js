@@ -2,13 +2,14 @@ import './index.scss';
 import { useEffect, useState } from 'react';
 import styles from './App.module.scss';
 
-const initialGuests = [{ name: '', last: '', id: 0, isComing: false }];
+// const initialGuests = [{ name: '', last: '', id: 0, isComing: false }];
 // Definition of variables
 export default function App() {
-  const [isGuestComing, setIsGuestComing] = useState(false);
+  const [isNewGuestComing, setIsNewGuestComing] = useState(false);
+  const [attending, setAttending] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [guests, setGuests] = useState(initialGuests);
+  const [guests, setGuests] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [currentGuestId, setCurrentGuestId] = useState(0);
   // function defining how to add new guest to guest array.
@@ -55,7 +56,7 @@ export default function App() {
   //     name: firstName,
   //     last: lastName,
   //     id: newGuestId,
-  //     isComing: isGuestComing,
+  //     isComing: attending,
   //   };
 
   //   // IDEA:maybe put button into component, pass down props of array to specify which one it deletes. Insert button into array?
@@ -112,17 +113,15 @@ export default function App() {
             />
           </label>
           <button>Submit</button>
-          <label>
-            {/* Connect attendance checkbox to guest object value */}
+          {/* <label>
+            Connect attendance checkbox to guest object value
             <input
               type="checkbox"
-              checked={isGuestComing}
-              onChange={(event) =>
-                setIsGuestComing(event.currentTarget.checked)
-              }
+              checked={attending}
+              onChange={(event) => setAttending(event.currentTarget.checked)}
             />
             Actually attending
-          </label>
+          </label> */}
         </form>
         <br />
         <div>
@@ -132,52 +131,66 @@ export default function App() {
             }
             return (
               <div key={`guest-${guest.id}`} data-test-id="guest">
-                {guest.id !== 0 ? (
-                  <h4>
-                    {/* {JSON.stringify(guest.isComing)} */}
-                    {guest.firstName} {guest.lastName}
-                    {/* Show element if guest id is not 0 (empty initial object) */}
-                    <div>
-                      <label>
-                        <input
-                          type="checkbox"
-                          checked={guest.id === currentGuestId && isGuestComing}
-                          // Implement change mechanism
-                          onChange={async (event) => {
-                            // create a new array, set it equal to guest. Map the guests array to check if the new array's id is identical to the guest id. If yes, spread array and set value of element to opposite
-                            // const updatedGuests = guests.map((g) =>
-                            //   g.id === guest.id
-                            //     ? { ...g, isComing: !g.isComing }
-                            //     : g,
-                            // );
-                            setCurrentGuestId(guest.id);
-                            setIsGuestComing(event.currentTarget.checked);
-                            // setGuests(updatedGuests);
-                          }}
-                        />
-                        attending
-                      </label>
-                      <button
-                        onClick={async () => {
-                          // create new variable, use .filter method to fill it with all elements that are NOT the current id.
-                          const updatedGuests = guests.filter(
-                            (g) => g.id !== guest.id,
+                {/* {guest.id !== 0 ? ( */}
+                <h4>
+                  {/* {JSON.stringify(guest.isComing)} */}
+                  {guest.firstName} {guest.lastName}
+                  {/* Show element if guest id is not 0 (empty initial object) */}
+                  <div>
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={guest.attending}
+                        // Implement change mechanism
+                        onChange={async (event) => {
+                          // create a new array, set it equal to guest. Map the guests array to check if the new array's id is identical to the guest id. If yes, spread array and set value of element to opposite
+
+                          setCurrentGuestId(guest.id);
+                          setAttending(event.currentTarget.checked);
+                          // setGuests(updatedGuests);
+                          const response = await fetch(
+                            `${baseUrl}/guests/${guest.id}`,
+                            {
+                              method: 'PUT',
+                              headers: {
+                                'Content-Type': 'application/json',
+                              },
+                              body: JSON.stringify({ attending: !attending }),
+                            },
+                          );
+                          const updatedGuest = await response.json();
+                          console.log(updatedGuest);
+                          const updatedGuests = guests.map((g) =>
+                            g.id === updatedGuest.id
+                              ? { ...g, attending: !g.attending }
+                              : g,
                           );
                           setGuests(updatedGuests);
-                          console.log(guests);
-                          await fetch(`${baseUrl}/guests/${guest.id}`, {
-                            method: 'DELETE',
-                          });
-                          // const deletedGuest = await response.json();
                         }}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </h4>
-                ) : (
-                  ''
-                )}
+                      />
+                      attending
+                    </label>
+                    <button
+                      onClick={async () => {
+                        // create new variable, use .filter method to fill it with all elements that are NOT the current id.
+                        const updatedGuests = guests.filter(
+                          (g) => g.id !== guest.id,
+                        );
+                        setGuests(updatedGuests);
+                        console.log(guests);
+                        await fetch(`${baseUrl}/guests/${guest.id}`, {
+                          method: 'DELETE',
+                        });
+                        // const deletedGuest = await response.json();
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </h4>
+                {/* ) : ( */}
+                {/* '' */}
+                {/* )} */}
               </div>
             );
           })}
