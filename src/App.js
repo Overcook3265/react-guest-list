@@ -11,9 +11,7 @@ export default function App() {
   const [guests, setGuests] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   // const [currentGuestId, setCurrentGuestId] = useState(0);
-  // function defining how to add new guest to guest array.
-  // Create ascending ID, create new object with input content inside.
-  // set isComing to state variable so it can be changed
+
   const baseUrl =
     'https://036fb3d5-640c-4e3b-b297-df9c9b9d3029-00-2km9e7ak1boea.worf.replit.dev';
 
